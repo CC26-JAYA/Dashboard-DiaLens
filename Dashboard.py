@@ -7,14 +7,10 @@ import matplotlib.patches as mpatches
 import seaborn as sns
 import itertools
 
-# ==========================================
 # KONFIGURASI HALAMAN
-# ==========================================
 st.set_page_config(page_title="Dashboard Analitik Diabetes", page_icon="📊", layout="wide")
 
-# ==========================================
 # CACHING DATA (MEMPERCEPAT LOAD)
-# ==========================================
 @st.cache_data
 def load_data():
     # 1. Load dataset asli
@@ -42,9 +38,7 @@ def load_data():
 # Panggil fungsi load data
 df_raw, df_clean = load_data()
 
-# ==========================================
 # HEADER & DESKRIPSI
-# ==========================================
 st.title("📊 Laporan Analitik: Faktor Risiko Diabetes (BRFSS 2015)")
 st.markdown("""
 Dashboard ini menyajikan hasil eksplorasi data komprehensif untuk memahami faktor-faktor utama yang membedakan 
@@ -53,9 +47,7 @@ individu sehat, prediabetes, dan diabetes. Analisis ini dibagi menjadi tiga pila
 """)
 st.markdown("---")
 
-# ==========================================
 # KONTEN DASHBOARD (TABS)
-# ==========================================
 tab1, tab2, tab3, tab4 = st.tabs([
     "📈 Gambaran Umum Data", 
     "🏃‍♂️ Q1: Faktor Gaya Hidup", 
@@ -63,7 +55,7 @@ tab1, tab2, tab3, tab4 = st.tabs([
     "❤️ Q3: Risiko Komorbiditas"
 ])
 
-# ---------------- TAB 1: OVERVIEW ----------------
+# TAB 1: OVERVIEW
 with tab1:
     st.header("Gambaran Umum & Korelasi Fitur")
     col1, col2 = st.columns([1, 1.5])
@@ -87,7 +79,7 @@ with tab1:
         
         st.info("**Insight Analisis Korelasi:**\nBerdasarkan Heatmap di atas, fitur yang paling berpengaruh kuat secara linear terhadap prediksi diabetes (memiliki nilai korelasi positif terbesar terhadap target) adalah **HighBP (Hipertensi)**, **HighChol (Kolesterol Tinggi)**, **BMI**, dan **GenHlth (Persepsi Kesehatan Umum)**.")
 
-# ---------------- TAB 2: GAYA HIDUP ----------------
+# TAB 2: GAYA HIDUP
 with tab2:
     st.header("Q1: Faktor Gaya Hidup Pemisah Kelas Diabetes")
     st.info("💡 **Pertanyaan Bisnis:** Faktor gaya hidup mana (BMI, aktivitas fisik, konsumsi buah & sayur, alkohol, merokok) yang paling signifikan membedakan individu yang menderita diabetes dari yang tidak, berdasarkan data survei kesehatan BRFSS 2015?")
@@ -149,7 +141,7 @@ with tab2:
     4. **Paradoks Alkohol & Merokok:** Tidak menunjukkan pola konsisten. Hal ini kemungkinan besar terjadi karena penderita diabetes sudah memodifikasi dan memperbaiki perilakunya (berhenti merokok/minum alkohol) setelah mendapatkan diagnosis medis.
     """)
 
-# ---------------- TAB 3: SOSIOEKONOMI ----------------
+# TAB 3: SOSIOEKONOMI
 with tab3:
     st.header("Q2: Pengaruh Pendapatan & Akses Layanan Kesehatan")
     st.info("💡 **Pertanyaan Bisnis:** Seberapa besar pengaruh tingkat pendapatan (Income) dan tingkat pendidikan (Education) terhadap kemampuan individu mengakses layanan kesehatan (AnyHealthcare & NoDocbcCost), dan apakah kelompok berpendapatan rendah memiliki risiko diabetes lebih tinggi berdasarkan data BRFSS 2015?")
@@ -202,7 +194,7 @@ with tab3:
     3. **Tingkat Pendidikan (Data Agregasi):** Semakin tinggi tingkat pendidikan, prevalensi diabetes semakin menurun secara drastis (dari 28.0% pada lulusan SD, turun ke angka 9.0% pada lulusan S2/S3).
     """)
 
-# ---------------- TAB 4: KOMORBIDITAS ----------------
+# TAB 4: KOMORBIDITAS
 with tab4:
     st.header("Q3: Dampak Kumulatif Komorbiditas (Hipertensi, Kolesterol, Jantung)")
     st.info("💡 **Pertanyaan Bisnis:** Bagaimana kombinasi hipertensi (HighBP), kolesterol tinggi (HighChol), dan riwayat penyakit jantung (HeartDiseaseorAttack) memengaruhi probabilitas seseorang terkena diabetes berdasarkan data BRFSS 2015?")
